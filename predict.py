@@ -7,7 +7,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
-model= keras.models.load_model('./model.h5', compile= False)
+model= keras.models.load_model('model.h5', compile= False)
 
 with open('./class_indices.json', 'r') as f:
     class_indices= json.load(f)
