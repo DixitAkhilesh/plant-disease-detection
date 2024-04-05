@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+</head>
+<body>
+    <h1>Plant Disease Detection</h1>
+    <input type="file" id="fileInput" title="image">
+    <button onclick="uploadImage(event)">Detect Disease</button>
+    <div id="result">Hello</div>
+
+    <script>
+        function uploadImage(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select an image file.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('http://localhost:5000/detect_disease', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `<p>Disease: ${data.disease}</p><p>Confidence: ${data.confidence}</p>`;
+            })
+            .catch(error => {
+                console.error('Error detecting disease:', error);
+            });
+        }
+    </script>
+</body>
+</html>
