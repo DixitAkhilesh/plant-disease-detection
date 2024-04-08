@@ -60,7 +60,8 @@ def predict_image_class(image_path):
 page_bg = """
 <style>
     [data-testid= "stAppViewContainer"]{
-        background-color: white !important;
+        background-color: whitesmoke !important;
+        margin-top: 0;
     }
 </style>
 """
@@ -75,7 +76,7 @@ with col_title:
 
 with col_uploader:
     # File uploader in the second column
-    uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
+    uploaded_file = st.file_uploader("",)
     
 # Initialize a variable to hold the button press state outside of the columns context
 button_pressed = False
@@ -93,13 +94,11 @@ if uploaded_file is not None:
 
     # Once the button is pressed, show the results in the same column as the button
     if button_pressed:
-        with st.spinner(text='Classifying...'):
-            class_name, confidence = predict_image_class(uploaded_file)
+        class_name, confidence = predict_image_class(uploaded_file)
         
         # Display the classification results depending on the classification
         if confidence >= 33:
             col_results.success(f"Disease: {class_name}")
-            col_results.write(f"Confidence: {confidence}%")
             send_data_to_backend(class_name, confidence)
         else:
             col_results.error("Unable to detect the plant. Please provide a clearer image.")
