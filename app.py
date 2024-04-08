@@ -12,7 +12,7 @@ st.set_page_config(layout="wide")
 
 def send_data_to_backend(class_name, confidence):
     """Send classification results to the backend."""
-    url = 'http://127.0.0.1:5000/send-data'
+    url = 'https://streamlit-node-connector.onrender.com/send-data'
     
     # Data to be sent
     data = {
