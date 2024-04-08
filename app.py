@@ -62,6 +62,7 @@ page_bg = """
     [data-testid= "stAppViewContainer"]{
         background-color: whitesmoke !important;
         margin-top: 0;
+        color: black;
     }
     [data-testid= "stFileUploaderDropzone"]{
         background-color: whitesmoke;
