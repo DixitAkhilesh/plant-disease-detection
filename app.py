@@ -119,7 +119,7 @@ if uploaded_file is not None:
         
         # Display the classification results depending on the classification
         if confidence >= 33:
-            col_results.success(f"Disease: {class_name}")
+            col_results.success(f"Disease: {class_name}, Confidence: {confidence}")
             send_data_to_backend(class_name, confidence)
         else:
             col_results.error("Unable to detect the plant. Please provide a clearer image.")
