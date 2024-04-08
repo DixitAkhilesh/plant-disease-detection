@@ -66,8 +66,14 @@ page_bg = """
     [data-testid= "stFileUploaderDropzone"]{
         background-color: whitesmoke;
         border: 2px solid #0c330b;
-        width: 110%;
+        color: black;
     }   
+    [data-testid= "baseButton-secondary"]{
+        background-color: #0c330b;
+        color: white;
+        border: 1px solid #0c330b;
+    }
+    
 </style>
 """
 
