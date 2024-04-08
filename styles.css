@@ -29,7 +29,6 @@ h2 {
 
 div.stButton > button:first-child {
     background-color: #0c330b;
-    border: 2px solid black;
     color: white;
     font-size: 20px;
     height: 3em;
@@ -51,7 +50,6 @@ div.stButton > button:first-child {
 
 div.stButton > button:first-child:focus {
     color: white !important;
-    border-color: black;
 }
 
 st-emotion-cache-eqffof{
@@ -63,9 +61,6 @@ st-emotion-cache-eqffof{
     margin-left: 5%;
 }
 
-.stAlert{
-    width: max-content;
-}
 
 .element-container{
     display: flex;

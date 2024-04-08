@@ -77,10 +77,13 @@ page_bg = """
     .e1bju1570{
         color: gray;
     }
-    [data-testid= "stMarkdownContainer"]{
-        color: black;
+    [data-testid= "baseButton-secondary"]:focus{
+        color: white;
+        border: 1px solid #0c330b;
     }
-    
+    [data-testid= "stNotification"]{
+        color: black
+    }
 </style>
 """
 
