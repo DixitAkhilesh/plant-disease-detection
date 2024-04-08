@@ -57,7 +57,17 @@ def predict_image_class(image_path):
     confidence = predictions[0][class_index] * 100  # Convert to percentage
     return class_name, round(confidence, 2)
 
+page_bg = """
+<style>
+    [data-testid= "stAppViewContainer"]{
+        background-color: white !important;
+    }
+</style>
+"""
+
 col_title, col_uploader, col_results = st.columns([1, 1.5, 1.5])
+
+st.markdown(page_bg, unsafe_allow_html= True)
 
 with col_title:
     st.markdown("")
