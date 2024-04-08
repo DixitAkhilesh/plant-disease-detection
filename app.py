@@ -73,6 +73,9 @@ page_bg = """
         color: white;
         border: 1px solid #0c330b;
     }
+    .e1bju1570{
+        color: gray;
+    }
     
 </style>
 """
