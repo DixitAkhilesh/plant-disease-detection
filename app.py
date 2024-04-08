@@ -77,6 +77,9 @@ page_bg = """
     .e1bju1570{
         color: gray;
     }
+    [data-testid= "stMarkdownContainer"]{
+        color: black;
+    }
     
 </style>
 """
