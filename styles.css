@@ -103,7 +103,6 @@ st-emotion-cache-eqffof{
     justify-content: center;
 }
 
-
-.root{
-    background-color: red;
+footer{
+    visibility: hidden;
 }
