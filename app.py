@@ -63,7 +63,7 @@ page_bg = """
         background-color: whitesmoke !important;
         margin-top: 0;
     }
-    .st-emotion-cache-1gulkj5{
+    [data-testid= "stFileUploaderDropzone"]{
         background-color: whitesmoke;
         border: 2px solid #0c330b;
         width: 110%;
