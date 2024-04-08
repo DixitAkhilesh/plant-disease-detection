@@ -96,3 +96,7 @@ st-emotion-cache-eqffof{
     display: flex;
     justify-content: center;
 }
+
+footer{
+    visibility: hidden;
+}
