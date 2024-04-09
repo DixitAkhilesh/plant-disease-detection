@@ -8,55 +8,52 @@ import requests  # Import the requests library
 
 st.set_page_config(layout="wide")
 
-
+# Suppress TensorFlow logging and disable oneDNN optimizations
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 def send_data_to_backend(class_name, confidence):
     """Send classification results to the backend."""
     url = 'https://streamlit-node-connector.onrender.com/send-data'
-    
-    # Data to be sent
-    data = {
-        'disease': class_name,
-        'confidence': confidence
-    }
-    
+    data = {'disease': class_name, 'confidence': confidence}
     try:
         response = requests.post(url, json=data)
+        if response.status_code != 200:
+            st.error("Failed to send data to backend.")
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
         
-        
-with open( "./styles.css" ) as css:
-    st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
-    
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow logging
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'  # Disable oneDNN optimizations
+# Load CSS
+with open("./styles.css") as css:
+    st.markdown(f'<style>{css.read()}</style>', unsafe_allow_html=True)
+
+# Attempt to load the model with error handling
 try:
     model = keras.models.load_model('./model.h5', compile=False)
 except Exception as e:
-    print(f"Error loading model: {e}")
-    
-CLASS_INDICES_PATH = './class_indices.json'
-model = keras.models.load_model('./model.h5', compile=False)
+    st.error(f"Error loading model: {e}")
+    st.stop()  # Stop execution if model cannot be loaded
 
+# Load class indices
+CLASS_INDICES_PATH = './class_indices.json'
 with open(CLASS_INDICES_PATH, 'r') as f:
     class_indices = json.load(f)
 
-def load_and_preprocess_image(image_path, target_size=(224, 224)):
+def load_and_preprocess_image(image_file, target_size=(224, 224)):
     """Load and preprocess an image for model prediction."""
-    img = Image.open(image_path)
+    img = Image.open(image_file)
     img = img.resize(target_size)
-    img_array = np.array(img) / 255.0  # Normalize to [0, 1]
-    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
+    img_array = np.array(img) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
     return img_array
 
-def predict_image_class(image_path):
+def predict_image_class(image_file):
     """Predict the class of an image using the pre-trained model."""
-    preprocessed_img = load_and_preprocess_image(image_path)
+    preprocessed_img = load_and_preprocess_image(image_file)
     predictions = model.predict(preprocessed_img)
     class_index = np.argmax(predictions, axis=1)[0]
     class_name = class_indices[str(class_index)]
-    confidence = predictions[0][class_index] * 100  # Convert to percentage
+    confidence = predictions[0][class_index] * 100
     return class_name, round(confidence, 2)
 
 page_bg = """
