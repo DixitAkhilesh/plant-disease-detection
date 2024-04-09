@@ -31,11 +31,13 @@ with open( "./styles.css" ) as css:
     
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow logging
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'  # Disable oneDNN optimizations
-
-# Load the pre-trained model and class indices from files
-MODEL_PATH = './model.h5'
+try:
+    model = keras.models.load_model('./model.h5', compile=False)
+except Exception as e:
+    print(f"Error loading model: {e}")
+    
 CLASS_INDICES_PATH = './class_indices.json'
-model = keras.models.load_model(MODEL_PATH, compile=False)
+model = keras.models.load_model('./model.h5', compile=False)
 
 with open(CLASS_INDICES_PATH, 'r') as f:
     class_indices = json.load(f)
